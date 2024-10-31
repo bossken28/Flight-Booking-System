@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Styling for QR code size and positioning */
+        #qr-codes img {
+            width: 200px; /* Adjust the width as needed */
+            height: auto; /* Maintains aspect ratio */
+            margin: 20px 0; /* Space above and below the image */
+        }
+    </style>
+    <script>
+        function displayBookingInfo() {
+            const userName = localStorage.getItem('username');
+            const userEmail = localStorage.getItem('email');
+            const flightDetails = JSON.parse(localStorage.getItem('selectedFlight'));
+            const departure = localStorage.getItem('departure');
+            const destination = localStorage.getItem('destination');
+            const date = localStorage.getItem('date');
+            const returnDate = localStorage.getItem('return-date');
+            const passengers = localStorage.getItem('passengers');
+            const flightClass = localStorage.getItem('class');
+
+            document.getElementById('username').innerText = userName;
+            document.getElementById('email').innerText = userEmail;
+            document.getElementById('departure').innerText = departure;
+            document.getElementById('destination').innerText = destination;
+            document.getElementById('date').innerText = date;
+            document.getElementById('return-date').innerText = returnDate || 'N/A';
+            document.getElementById('passengers').innerText = passengers;
+            document.getElementById('class').innerText = flightClass;
+            document.getElementById('airline').innerText = flightDetails.airline;
+            document.getElementById('price').innerText = flightDetails.price;
+        }
+
+        function processPayment(event) {
+            event.preventDefault();
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+            // Hide both QR code divs
+            document.getElementById('gcash-qr').style.display = 'none';
+            document.getElementById('paymaya-qr').style.display = 'none';
+
+            // Display the corresponding QR code
+            if (paymentMethod === 'GCash') {
+                document.getElementById('gcash-qr').style.display = 'block';
+            } else if (paymentMethod === 'PayMaya') {
+                document.getElementById('paymaya-qr').style.display = 'block';
+            }
+
+            // Simulate delay or wait for confirmation
+            setTimeout(function() {
+                // Redirect to confirmation.html
+                window.location.href = 'confirmation.html';
+            }, 3000); // This waits 3 seconds before redirecting
+        }
+    </script>
+</head>
+<body onload="displayBookingInfo()">
+    <header>
+        <h1>Payment</h1>
+        <nav>
+            <a href="flight-status.html">Flight Status</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="search.html">Search Flights</a>
+            <a href="profile.html">Profile</a>
+            <a href="logout.html">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container-payment">
+        <h2>Confirm Your Payment</h2>
+        <section>
+            <h3>Your Information</h3>
+            <p><strong>Name:</strong> <span id="username"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+        </section>
+
+        <section class="flight-details">
+            <h3>Flight Details</h3>
+            <p><strong>Departure City:</strong> <span id="departure"></span></p>
+            <p><strong>Destination City:</strong> <span id="destination"></span></p>
+            <p><strong>Departure Date:</strong> <span id="date"></span></p>
+            <p><strong>Return Date:</strong> <span id="return-date"></span></p>
+            <p><strong>Passengers:</strong> <span id="passengers"></span></p>
+            <p><strong>Class:</strong> <span id="class"></span></p>
+            <p><strong>Airline:</strong> <span id="airline"></span></p>
+            <p><strong>Price:</strong> $<span id="price"></span></p>
+        </section>
+
+        <section class="payment-method">
+            <h3>Select Payment Method</h3>
+            <form id="payment-form" onsubmit="processPayment(event)">
+                <label>
+                    <input type="radio" name="payment" value="GCash" required>
+                    GCash
+                </label><br>
+                <label>
+                    <input type="radio" name="payment" value="PayMaya" required>
+                    PayMaya
+                </label><br>
+                <button type="submit">Pay Now</button>
+            </form>
+        </section>
+
+        <section id="qr-codes">
+            <h3>Payment QR Codes</h3>
+            <div id="gcash-qr" style="display: none;">
+                <p>Please scan the QR code below to complete your GCash payment:</p>
+                <img src="qrcode1.jpg" alt="GCash QR Code" />
+            </div>
+            <div id="paymaya-qr" style="display: none;">
+                <p>Please scan the QR code below to complete your PayMaya payment:</p>
+                <img src="qrcode2.jpg" alt="PayMaya QR Code" />
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Flight Booking System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

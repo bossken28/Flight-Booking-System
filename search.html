@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Flights</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function storeSearchData(event) {
+            event.preventDefault(); // Prevent default form submission
+            const departure = document.getElementById('departure').value;
+            const destination = document.getElementById('destination').value;
+            const date = document.getElementById('date').value;
+            const returnDate = document.getElementById('return-date').value;
+            const passengers = document.getElementById('passengers').value;
+            const flightClass = document.getElementById('class').value;
+
+            // Store search data in local storage
+            localStorage.setItem('departure', departure);
+            localStorage.setItem('destination', destination);
+            localStorage.setItem('date', date);
+            localStorage.setItem('return-date', returnDate);
+            localStorage.setItem('passengers', passengers);
+            localStorage.setItem('class', flightClass);
+
+            // Redirect to results.html
+            window.location.href = 'results.html';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Find Your Flight</h1>
+    </header>
+
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="flight-status.html">flight status</a>
+        <a href="logout.html">logout</a>
+    </nav>
+
+    <div class="container">
+        <h2>Search for Flights</h2>
+        <form onsubmit="storeSearchData(event)">
+            <label for="departure">Departure City:</label>
+            <input type="text" id="departure" name="departure" placeholder="Enter departure city" required>
+
+            <label for="destination">Destination City:</label>
+            <input type="text" id="destination" name="destination" placeholder="Enter destination city" required>
+
+            <label for="date">Departure Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="return-date">Return Date (optional):</label>
+            <input type="date" id="return-date" name="return-date">
+
+            <label for="passengers">Passengers:</label>
+            <select id="passengers" name="passengers" required>
+                <option value="1">1 Passenger</option>
+                <option value="2">2 Passengers</option>
+                <option value="3">3 Passengers</option>
+                <option value="4">4 Passengers</option>
+                <option value="5">5+ Passengers</option>
+            </select>
+
+            <label for="class">Class:</label>
+            <select id="class" name="class">
+                <option value="economy">Economy</option>
+                <option value="business">Business</option>
+                <option value="first">First Class</option>
+            </select>
+
+            <button type="submit">Search Flights</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Flight Booking System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

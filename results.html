@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Search Results</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function getSearchData() {
+            const departure = localStorage.getItem('departure');
+            const destination = localStorage.getItem('destination');
+            document.getElementById('search-info').innerText = `Flights from ${departure} to ${destination}`;
+        }
+
+        function bookFlight(flightIndex) {
+            // You can replace this with actual flight data as needed
+            const flightDetails = {
+                '1': {airline: 'Airline 1', departure: '10:00 AM', arrival: '12:00 PM', price: 350},
+                '2': {airline: 'Airline 2', departure: '1:00 PM', arrival: '3:30 PM', price: 400},
+                '3': {airline: 'Airline 3', departure: '5:00 PM', arrival: '7:30 PM', price: 300}
+            };
+
+            // Store flight data in local storage
+            localStorage.setItem('selectedFlight', JSON.stringify(flightDetails[flightIndex]));
+            window.location.href = 'booking.html';
+        }
+    </script>
+</head>
+<body onload="getSearchData()">
+    <header>
+        <h1>Flight Search Results</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="search.html">Search Again</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">My Profile</a>
+    </nav>
+
+    <div class="container-result">
+        <h2 id="search-info">Available Flights</h2>
+        <div class="flight-list">
+            <div class="flight">
+                <h4>Flight 1</h4>
+                <p>Airline: Airline Name</p>
+                <p>Departure: 10:00 AM - Arrival: 12:00 PM</p>
+                <p>Price: $350</p>
+                <button onclick="bookFlight('1')">Book Now</button>
+            </div>
+
+            <div class="flight">
+                <h4>Flight 2</h4>
+                <p>Airline: Airline Name</p>
+                <p>Departure: 1:00 PM - Arrival: 3:30 PM</p>
+                <p>Price: $400</p>
+                <button onclick="bookFlight('2')">Book Now</button>
+            </div>
+
+            <div class="flight">
+                <h4>Flight 3</h4>
+                <p>Airline: Airline Name</p>
+                <p>Departure: 5:00 PM - Arrival: 7:30 PM</p>
+                <p>Price: $300</p>
+                <button onclick="bookFlight('3')">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Flight Booking System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

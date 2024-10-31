@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Flight</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function populateFlightDetails() {
+            const flightDetails = JSON.parse(localStorage.getItem('selectedFlight'));
+            const departure = localStorage.getItem('departure');
+            const destination = localStorage.getItem('destination');
+            const date = localStorage.getItem('date');
+            const returnDate = localStorage.getItem('return-date');
+            const passengers = localStorage.getItem('passengers');
+            const flightClass = localStorage.getItem('class');
+
+            document.getElementById('departure').innerText = departure;
+            document.getElementById('destination').innerText = destination;
+            document.getElementById('date').innerText = date;
+            document.getElementById('return-date').innerText = returnDate || 'N/A';
+            document.getElementById('passengers').innerText = passengers;
+            document.getElementById('class').innerText = flightClass;
+            document.getElementById('airline').innerText = flightDetails.airline;
+            document.getElementById('price').innerText = flightDetails.price;
+        }
+
+        function confirmBooking(event) {
+            event.preventDefault();
+            const userName = document.getElementById('username').value;
+            const userEmail = document.getElementById('email').value;
+
+            localStorage.setItem('username', userName);
+            localStorage.setItem('email', userEmail);
+
+            window.location.href = 'payment.html';
+        }
+    </script>
+</head>
+<body onload="populateFlightDetails()">
+    <header>
+        <h1>Book Your Flight</h1>
+        <nav>
+            <a href="flight-status.html">Flight Status</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="search.html">Search Flights</a>
+            <a href="profile.html">Profile
+            <a href="logout.html">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="flight-details">
+            <h2>Flight Details</h2>
+            <p><strong>Departure City:</strong> <span id="departure"></span></p>
+            <p><strong>Destination City:</strong> <span id="destination"></span></p>
+            <p><strong>Departure Date:</strong> <span id="date"></span></p>
+            <p><strong>Return Date:</strong> <span id="return-date"></span></p>
+            <p><strong>Passengers:</strong> <span id="passengers"></span></p>
+            <p><strong>Class:</strong> <span id="class"></span></p>
+            <p><strong>Airline:</strong> <span id="airline"></span></p>
+            <p><strong>Price:</strong> $<span id="price"></span></p>
+        </section>
+
+        <section class="user-info">
+            <h2>Your Information</h2>
+            <form id="booking-form" onsubmit="confirmBooking(event)">
+                <label for="username">Name:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <button type="submit">Confirm Booking</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Flight Booking System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

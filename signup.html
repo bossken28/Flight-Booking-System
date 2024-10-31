@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Create Your Account</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+    </nav>
+
+    <div class="container-signup">
+        <h1>Sign up</h1>
+        <form id="signup-form" onsubmit="saveUserDetails(event)">
+            <input type="text" placeholder="Username" id="username" name="username" required>
+            <i class='bx bxs-user'></i>
+            <input type="email" placeholder="Email" id="email" name="email" required>
+            <i class='bx bxs-envelope'></i>
+            <div class="password-container">
+                <input type="password" placeholder="Password" id="password" name="password" required>
+                <i class='bx bxs-lock-alt'></i>
+                <span class="toggle-password" id="togglePassword">👁️</span>
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Flight Booking System. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Toggle password visibility
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.textContent = type === 'password' ? '👁️' : '🙈';
+        });
+
+        // Save user details to localStorage
+        function saveUserDetails(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const joinDate = new Date().toLocaleDateString();
+
+            // Save user data to localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('email', email);
+            localStorage.setItem('password', password);
+            localStorage.setItem('joinDate', joinDate);
+
+            // Redirect to profile page
+            window.location.href = 'profile.html';
+        }
+    </script>
+</body>
+</html>

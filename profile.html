@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    </style>
+    <script>
+        // Load user details from localStorage and display in the form
+        function loadUserDetails() {
+            const username = localStorage.getItem('username');
+            const email = localStorage.getItem('email');
+            const joinDate = localStorage.getItem('joinDate');
+
+            document.getElementById('name').value = username;
+            document.getElementById('email').value = email;
+            document.getElementById('join-date').value = joinDate;
+        }
+
+        // Update user details in localStorage
+        function updateUserDetails(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            localStorage.setItem('username', username);
+            localStorage.setItem('email', email);
+            if (password) {
+                localStorage.setItem('password', password);
+            }
+
+            alert('Profile updated successfully!');
+        }
+    </script>
+</head>
+<body onload="loadUserDetails()">
+    <header>
+        <h1>User Profile</h1>
+        <nav>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="search.html">Search Flights</a>
+            <a href="logout.html">Logout</a>
+            <a href="flight-status.html">Flight Status</a>
+        </nav>
+    </header>
+
+    <div class="container-profile">
+        <section class="profile">
+            <h2>Your Profile Information</h2>
+            <form id="profile-form" onsubmit="updateUserDetails(event)">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
+
+                <label for="join-date">Member Since:</label>
+                <input type="text" id="join-date" name="join-date" readonly>
+
+                <button type="submit">Update Profile</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Flight Booking System. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
